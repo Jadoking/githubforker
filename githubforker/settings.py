@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from dotenv import load_dotenv
 from pathlib import Path
 
+import os
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -24,6 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+
+# Environment Variables 
+REPO_OWNER = os.getenv('REPO_OWNER')
+REPO_NAME = os.getenv('REPO_NAME')
+GITHUB_API_OAUTH_TOKEN = os.getenv('GITHUB_API_OAUTH_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
