@@ -1,2 +1,4 @@
+.DS_STORE
 /python37
+__pycache__/
 .env
