@@ -3,7 +3,7 @@ import requests
 from django.conf import settings
 
 
-def create_github_fork(fork_name: str, default_branch_only: bool = True):
+def create_github_fork(fork_name: str, default_branch_only: bool = True) -> dict:
     """Create a fork of the repo with the given name.
     
     Args:
@@ -11,7 +11,7 @@ def create_github_fork(fork_name: str, default_branch_only: bool = True):
         default_branch_only (Bool): If True, the fork will only contain the default branch."
     
     Returns:
-        response (Response): The response from the GitHub API.
+        response_json (Response): The response from the GitHub API.
     """
     repo_owner = settings.REPO_OWNER
     repo_name = settings.REPO_NAME
@@ -32,31 +32,35 @@ def create_github_fork(fork_name: str, default_branch_only: bool = True):
     response = requests.post(url, headers=headers, json=request_body)
 
     # parses response to JSON
-    response_json = json.loads(response.content)
 
-    return process_fork_response(response_json)
+    return process_fork_response(response)
 
 
-def process_fork_response(response_json: dict):
+def process_fork_response(response: requests.Response) -> dict:
     """Process the response from the GitHub API.
     
     Args:
-        response_json (dict): The response from the GitHub API.
+        response (Response): The response from the GitHub API.
     
     Returns:
-        response (dict): The response to be returned to the user.
-    """
-    if 'message' in response_json:
-        response = {
-            'status': 'error',
-            'message': response_json['message'],
-        }
-    else:
-        response = {
-            'status': 'success',
-            'message': 'Fork created successfully!',
-            'name': response_json['name'],
-            'html_url': response_json['html_url'],
-        }
+        response_json (dict): The response to be returned to the user.
 
-    return response
+    """
+    response_content = json.parse(response.content)
+
+    response_json = {
+        'status_code': response.status_code,
+    }
+
+    if response.status_code == 202:
+        response.update({
+            'message': 'Fork created successfully!',
+            'name': response_content['name'],
+            'html_url': response_content['html_url'],
+        })
+    elif "message" in response_content:
+        response_json.update({
+            'message': response_content['message'],
+        })
+
+    return response_json

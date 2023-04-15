@@ -2,3 +2,4 @@
 /python37
 __pycache__/
 .env
+*sqlite3
