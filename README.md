@@ -34,4 +34,20 @@ from repo.utils import create_github_fork
 create_github_fork('name-of-fork')
 ```
 
-Still WIP so more will come
+The api endpoint to create a fork is as follows
+
+```
+repo/fork/
+```
+
+This endpoint will fork the specified repo in the .env file to the Authenticated Github User that the Personal Access Token belongs to
+
+In addition you it can accept query parameters to change certain settings related to the fork
+
+- `fork_name` - The name of the fork to create.
+- `default_branch_only` -  If True, the fork will only contain the default branch.
+
+Example:
+```
+repo/fork/?fork_name=somenameforthefork?default_branch_only=False
+```
