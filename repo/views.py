@@ -24,7 +24,7 @@ class GithubForkView(View):
         default_branch_only = query_params.get('default_branch_only')
 
         fork_args = {
-            fork_name: fork_name
+            'fork_name': fork_name
         }
 
         if default_branch_only:
