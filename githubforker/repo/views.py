@@ -35,3 +35,4 @@ class GithubForkView(View):
 
         response = create_github_fork(**fork_args)
         return HttpResponse(json.dumps(response))
+
