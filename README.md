@@ -71,3 +71,8 @@ Example:
 ```
 repo/fork/?fork_name=somenameforthefork?default_branch_only=False
 ```
+
+## Tests
+
+You can run tests with the following command while the service is running `docker compose exec app pytest githubforker`
+

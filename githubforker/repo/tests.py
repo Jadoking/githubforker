@@ -9,7 +9,8 @@ from django.conf import settings
 def test_create_github_fork_success(mock_post_request):
     # the personal token needs to have the repo scope and delete repo scope
     fork_args = {
-        'fork_name': 'test_fork'
+        'fork_name': 'test_fork',
+        'github_access_token': 'test_token',
     }
 
     mock_post_request.return_value.status_code = 202
@@ -32,7 +33,8 @@ def test_create_github_fork_success(mock_post_request):
                           [422, 'Validation failed, or the endpoint has been spammed.']])
 def test_create_github_fork_failure(mock_post_request, status_code, message):
     fork_args = {
-        'fork_name': 'test_fork'
+        'fork_name': 'test_fork',
+        'github_access_token': 'test_token',
     }
 
     mock_post_request.return_value.status_code = status_code
