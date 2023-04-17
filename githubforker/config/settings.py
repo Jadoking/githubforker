@@ -27,16 +27,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-# Environment Variables 
+# Environment Variables
+ENVIRONMENT = os.getenv('ENVIRONMENT')
 REPO_OWNER = os.getenv('REPO_OWNER')
 REPO_NAME = os.getenv('REPO_NAME')
-GITHUB_API_OAUTH_TOKEN = os.getenv('GITHUB_API_OAUTH_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if ENVIRONMENT == 'dev' else False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*'] if ENVIRONMENT == 'dev' else []
 
 # Application definition
 
@@ -86,8 +85,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('MYSQL_DATABASE'),
+        'USER': os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': os.getenv('MYSQL_DATABASE_HOST'),
+        'PORT': os.getenv('MYSQL_DATABASE_PORT'),
     }
 }
 
