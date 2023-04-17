@@ -1,7 +1,8 @@
 import requests
+from repo.decorators import check_environment_variables_set
 from django.conf import settings
 
-
+@check_environment_variables_set
 def create_github_fork(fork_name: str, default_branch_only: bool = True) -> dict:
     """Create a fork of the repo with the given name.
     
@@ -15,7 +16,7 @@ def create_github_fork(fork_name: str, default_branch_only: bool = True) -> dict
     repo_owner = settings.REPO_OWNER
     repo_name = settings.REPO_NAME
     github_api_oauth_token = settings.GITHUB_API_OAUTH_TOKEN
-
+    
     headers = {
         'Accept': 'application/vnd.github+json',
         'Authorization': f'token {github_api_oauth_token}',
