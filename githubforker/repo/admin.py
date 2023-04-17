@@ -1,3 +1,5 @@
 from django.contrib import admin
+from repo.models import GithubUserInfo
 
-# Register your models here.
+admin.site.register(GithubUserInfo)
+

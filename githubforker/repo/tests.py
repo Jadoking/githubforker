@@ -54,4 +54,4 @@ def test_check_environment_variables_set():
     with pytest.raises(ValueError) as e:
         decorated()
 
-    assert str(e.value) == 'Please set the REPO_OWNER, REPO_NAME, and GITHUB_API_OAUTH_TOKEN environment variables.' 
+    assert str(e.value) == 'Please set the REPO_OWNER, and REPO_NAME environment variables.' 
