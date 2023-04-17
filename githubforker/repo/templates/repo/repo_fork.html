@@ -1,0 +1,5 @@
+{% if not request.user.githubuserinfo and not request.user.githubuserinfo.github_access_token %}
+    <a href="{% url 'admin:repo_githubuserinfo_changelist' %}">Please add Github User Info</a>
+{% else %}
+    <a href="{% url 'fork' %}">Fork This Project's Repo!</a>
+{% endif %}

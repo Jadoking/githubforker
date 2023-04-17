@@ -7,9 +7,13 @@ from django.views import View
 from repo.decorators import check_for_github_access_token
 from repo.utils import create_github_fork
 
-import logging
 
-logger = logging.getLogger(__name__)
+class RepoForkView(View):
+
+    def get(self, request):
+        """Render the repo fork page."""
+        return render(request, 'repo/repo_fork.html')
+
 
 class GithubForkView(View):
 
