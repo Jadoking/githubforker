@@ -12,6 +12,5 @@ RUN . /opt/venv/bin/activate && pip install -r requirements.txt
 
 # Run the application
 COPY .env /app
-RUN . /app/.env
 COPY githubforker/ /app
 CMD . /opt/venv/bin/activate

@@ -6,20 +6,12 @@ This is done by making a call to the Github API using an Authorized OAuth token
 
 For information on how to generate a token one can refer to this page (https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic) This token needs to have 'repos' permissions
 
-This token as well as a few other variables need to be set in a .env file at the root of the project
+This application uses Docker 4.18.0
 
-Currently due to the fact that we have not properly setup environment variable loading on virtualenv activation (WIP) you will need to 
-
-run this command in terminal before running
+After cloning please create an `.env` file in the project root with the following variables
 
 ```
-export DJANGO_SETTINGS_MODULE=githubforker.settings
-```
-
-Until we setup a script to generate a .env file you will need these variables in your .env file
-
-```
-
+DJANGO_SETTINGS_MODULE=config.settings
 DJANGO_SECRET_KEY='[insert your django secret key]'
 REPO_OWNER='[insert username of the github user the forked repo is in]'
 REPO_NAME='[insert name of repo to be forked]'
@@ -27,20 +19,22 @@ GITHUB_API_OAUTH_TOKEN='[insert token here]'
 
 ```
 
-Endpoint is coming but for the time being you can test the functionality in the python shell
+Afterwards please run `docker compose up`
 
-```
-from repo.utils import create_github_fork
-create_github_fork('name-of-fork')
-```
+If you are running this for the first time it will build an image.
+
+If in the future you need to rebuild the image you can run `docker compose build`
+Sometimes certain actions during the build process get cached you can avoid this by running the above command with the arguement `--no-cache`
+
+Once the docker container is up the API should be running on `localhost port 8000` (this can be changed in `docker-compose.yaml`)
 
 The api endpoint to create a fork is as follows
 
 ```
-repo/fork/
+localhost:8000/repo/fork/
 ```
 
-This endpoint will fork the specified repo in the .env file to the Authenticated Github User that the Personal Access Token belongs to
+This endpoint will fork the specified repo in the `.env` file to the Authenticated Github User that the Personal Access Token belongs to
 
 In addition you it can accept query parameters to change certain settings related to the fork
 
