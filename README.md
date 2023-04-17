@@ -52,7 +52,9 @@ Once the docker container is up the API should be running on `localhost port 800
 2. login at `localhost:8000/admin`
 3. After a user is created and logged in you can add a `Github User Info` object you can do this at `localhost:8000/admin/repo/githubuserinfo`
 4. once that is setup you can use the endpoint for the authenticated user
+5. You can also visit `localhost:8000/repo/` if you want to click a hyperlink to fork the repo
 
+If you visit `localhost:8000/repo` without adding Github User Info it will show you a link to the admin page to add it
 
 The api endpoint to create a fork is as follows
 
