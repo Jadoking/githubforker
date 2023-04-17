@@ -1,4 +1,3 @@
-import json
 import requests
 from repo.decorators import check_environment_variables_set
 from django.conf import settings
@@ -47,14 +46,14 @@ def process_fork_response(response: requests.Response) -> dict:
         response_json (dict): The response to be returned to the user.
 
     """
-    response_content = json.parse(response.content)
+    response_content = response.json()
 
     response_json = {
         'status_code': response.status_code,
     }
 
     if response.status_code == 202:
-        response.update({
+        response_json.update({
             'message': 'Fork created successfully!',
             'name': response_content['name'],
             'html_url': response_content['html_url'],
